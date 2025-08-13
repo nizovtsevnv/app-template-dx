@@ -1,0 +1,11 @@
+# Rust formatting configuration
+# See https://rust-lang.github.io/rustfmt/ for all options
+
+# Basic formatting
+edition = "2024"
+max_width = 100
+hard_tabs = false
+tab_spaces = 4
+
+# Import formatting
+reorder_imports = true

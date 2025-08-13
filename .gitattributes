@@ -1,0 +1,48 @@
+# Git attributes for consistent line endings and language detection
+
+# Text files
+*.rs text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.txt text eol=lf
+
+# Nix files
+*.nix text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+
+# Config files
+Makefile text eol=lf
+justfile text eol=lf
+LICENSE text eol=lf
+README* text eol=lf
+Cargo.lock text eol=lf -diff
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.wasm binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+
+# Language detection overrides
+*.md linguist-detectable
+*.toml linguist-detectable
+justfile linguist-language=just
+
+# Generated files
+target/ linguist-generated
+dist/ linguist-generated
+pkg/ linguist-generated

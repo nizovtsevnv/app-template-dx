@@ -1,0 +1,9 @@
+[application]
+name = "web"
+default_platform = "web"
+
+[web.app]
+title = "App Template DX"
+
+[web.watcher]
+watch_path = ["src", "../../shared"]

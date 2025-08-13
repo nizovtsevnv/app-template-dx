@@ -1,0 +1,70 @@
+[workspace]
+resolver = "2"
+members = [
+    "apps/web",
+    "shared/ui",
+    "shared/models",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2024"
+license = "MIT"
+authors = ["Nick Nizovtsev"]
+
+[workspace.dependencies]
+dioxus = "0.6"
+dioxus-web = "0.6"
+serde = { version = "1.0", features = ["derive"] }
+
+# Development and testing dependencies
+criterion = { version = "0.5", features = ["html_reports"] }
+
+
+# Build profiles
+[profile.dev]
+debug = true
+opt-level = 0
+overflow-checks = true
+lto = false
+panic = "unwind"
+codegen-units = 16
+rpath = false
+
+[profile.release]
+debug = false
+opt-level = 3
+overflow-checks = false
+lto = true
+panic = "abort"
+codegen-units = 1
+rpath = false
+strip = true
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true
+strip = false
+
+[profile.bench]
+debug = false
+opt-level = 3
+overflow-checks = false
+lto = true
+codegen-units = 1
+rpath = false
+
+[profile.test]
+debug = 2
+opt-level = 0
+overflow-checks = true
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"

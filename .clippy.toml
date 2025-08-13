@@ -1,0 +1,27 @@
+# Clippy configuration
+# See https://doc.rust-lang.org/clippy/configuration.html for all options
+
+# Basic configuration
+msrv = "1.76.0"
+cognitive-complexity-threshold = 30
+type-complexity-threshold = 250
+trivial-copy-size-limit = 256
+pass-by-value-size-limit = 256
+too-many-arguments-threshold = 7
+too-many-lines-threshold = 100
+vec-box-size-threshold = 4096
+max-trait-bounds = 3
+max-struct-bools = 3
+max-fn-params-bools = 3
+
+# Allow certain patterns common in web development
+allow-expect-in-tests = true
+allow-unwrap-in-tests = true
+allow-dbg-in-tests = true
+allow-print-in-tests = true
+
+# Suppress overly pedantic lints for template
+suppress-restriction-lint-in-const = true
+
+# Documentation requirements
+missing-docs-in-crate-items = true
