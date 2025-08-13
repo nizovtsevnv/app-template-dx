@@ -1,5 +1,8 @@
 # App Template DX
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Rust Version](https://img.shields.io/badge/rust-2024-blue.svg)](https://www.rust-lang.org)
+
 A production-ready Rust workspace template for building efficient Dioxus web applications with exceptional developer experience.
 
 ## Overview
