@@ -23,11 +23,19 @@ fn test_button_props() {
     let _props1 = ButtonProps {
         text: "Click me".to_string(),
         onclick: None,
+        variant: ButtonVariant::Primary,
+        size: ButtonSize::Medium,
+        disabled: false,
+        class: None,
     };
 
     // Test with default values
     let _props2 = ButtonProps {
         text: "Another button".to_string(),
         onclick: None,
+        variant: ButtonVariant::Secondary,
+        size: ButtonSize::Small,
+        disabled: false,
+        class: Some("custom-class".to_string()),
     };
 }

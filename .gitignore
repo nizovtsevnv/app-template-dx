@@ -63,3 +63,6 @@ criterion/
 
 # Cache
 .cache/
+
+# Generated CSS (ignore generated, but track static assets)
+apps/web/assets/generated.css

@@ -24,7 +24,6 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             rustToolchain
-            rustup
             pkg-config
             openssl
             pre-commit
@@ -39,19 +38,14 @@
             # Dioxus and WASM tools
             dioxus-cli
             wasm-bindgen-cli
+
+            # Frontend tooling
+            nodejs_22
+            tailwindcss
           ];
 
           shellHook = ''
             echo "🦀 Nix development environment [$(rustc --version)]"
-
-            # Ensure WASM target is installed
-            if ! rustup target list --installed | grep -q wasm32-unknown-unknown; then
-              echo "Installing WASM target..."
-              rustup target add wasm32-unknown-unknown
-              echo "✅ WASM target installed"
-            else
-              echo "WASM target: wasm32-unknown-unknown (already installed)"
-            fi
 
             # Automatically install pre-commit hooks
             if [ -f .pre-commit-config.yaml ] && [ ! -f .git/hooks/pre-commit ]; then

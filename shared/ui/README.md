@@ -21,6 +21,8 @@ src/
 │   ├── mod.rs         # Component module declarations
 │   └── button.rs      # Button component implementation
 └── tests/             # Integration tests for components
+styles.css              # Source CSS with Tailwind and custom styles
+tailwind.config.js      # Tailwind configuration
 ```
 
 ### Testing Structure

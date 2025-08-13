@@ -8,11 +8,7 @@ define check_dx
 endef
 
 define check_wasm_target
-	@if command -v rustup >/dev/null 2>&1; then \
-		rustup target list --installed | grep -q wasm32-unknown-unknown || { echo "WASM target not installed. Run: rustup target add wasm32-unknown-unknown"; exit 1; }; \
-	else \
-		echo "Using Nix-managed Rust toolchain with WASM target"; \
-	fi
+	@echo "Using Nix-managed Rust toolchain with pre-configured WASM target"
 endef
 
 # Default target
@@ -21,10 +17,21 @@ help: ## Show this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 # Development
-dev: ## Start development server with hot reload
+dev: styles ## Start development server with hot reload (generates CSS first)
 	$(call check_dx)
 	$(call check_wasm_target)
 	@echo "Starting development server..."
+	cd apps/web && dx serve --platform web --hot-reload true
+
+dev-watch: ## Start development server with CSS watch mode
+	@echo "Starting development server with CSS watch mode..."
+	@echo "This will run both Dioxus dev server and CSS watch mode in parallel"
+	@$(MAKE) -j2 dev-server styles-watch
+
+dev-server: ## Start Dioxus dev server only (internal target)
+	$(call check_dx)
+	$(call check_wasm_target)
+	@sleep 2  # Wait for CSS generation
 	cd apps/web && dx serve --platform web --hot-reload true
 
 # Building
@@ -98,10 +105,38 @@ docs: ## Generate documentation
 docs-build: ## Build documentation without opening
 	cargo doc --workspace --no-deps
 
+# Styling
+styles: ## Generate CSS from Tailwind and custom styles
+	@echo "Generating CSS for web app..."
+	@mkdir -p apps/web/assets
+	@if command -v tailwindcss >/dev/null 2>&1; then \
+		tailwindcss -i ./shared/ui/styles.css -o ./apps/web/assets/generated.css --config ./shared/ui/tailwind.config.js; \
+		echo "✅ CSS generated in apps/web/assets/generated.css"; \
+	else \
+		echo "❌ tailwindcss not found. Enter Nix environment with: nix develop"; \
+		exit 1; \
+	fi
+
+# Alias for backwards compatibility
+tailwind: styles
+
+styles-watch: ## Watch for changes and rebuild CSS
+	@echo "Watching for style changes..."
+	@if command -v tailwindcss >/dev/null 2>&1; then \
+		tailwindcss -i ./shared/ui/styles.css -o ./apps/web/assets/generated.css --config ./shared/ui/tailwind.config.js --watch; \
+	else \
+		echo "❌ tailwindcss not found. Enter Nix environment with: nix develop"; \
+		exit 1; \
+	fi
+
+# Alias for backwards compatibility
+tailwind-watch: styles-watch
+
 # Cleaning
 clean: ## Clean build artifacts
 	cargo clean
 	rm -rf apps/web/dist/
+	rm -f apps/web/assets/generated.css
 	rm -rf target/criterion/
 
 # Dependencies (Note: Most tools are available via Nix)
