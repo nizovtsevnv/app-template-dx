@@ -340,9 +340,14 @@ main() {
 
     print_success "🎉 Project initialization completed!"
     print_info "Next steps:"
-    print_info "  1. cd $PROJECT_NAME"
-    print_info "  2. nix develop"
-    print_info "  3. make dev  # or cd apps/web && dx serve --hot-reload"
+    print_info "  1. Go to the project folder:"
+    print_info "     \$ cd $PROJECT_NAME"
+    print_info "  2. Prepare your development environment:"
+    print_info "     \$ nix develop"
+    print_info "  3. Run the application:"
+    print_info "     \$ make dev"
+    print_info "     or"
+    print_info "     \$ cd apps/web && dx serve --hot-reload"
     print_info ""
     print_info "Happy coding! 🦀"
 }
